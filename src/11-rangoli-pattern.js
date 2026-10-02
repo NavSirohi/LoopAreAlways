@@ -37,4 +37,49 @@
  */
 export function rangoli(n) {
   // Your code here
+  let result=[];
+  if(isNaN(n) || n<=0|| !Number.isInteger(n)){
+    return [];
+  }
+
+  for(let i=1;i<=n;i++){
+    let pattern="";
+    let leftSpace=n-i;
+    for(let j=0;j<leftSpace;j++){
+      pattern+=" ";
+    }
+
+    for(let k=0;k<i;k++){
+      pattern+="*";
+      if(k<i-1){
+        pattern+=" ";
+      }
+    }
+    result.push(pattern);
+
+  }
+   // BOTTOM HALF
+  for (let i = n - 1; i >= 1; i--) {
+
+    let pattern = "";
+    let leftSpace = n - i;
+
+    // Leading spaces
+    for (let j = 0; j < leftSpace; j++) {
+      pattern += " ";
+    }
+
+    // Stars
+    for (let k = 0; k < i; k++) {
+
+      pattern += "*";
+
+      if (k < i - 1) {
+        pattern += " ";
+      }
+    }
+
+    result.push(pattern);
+  }
+    return result;
 }

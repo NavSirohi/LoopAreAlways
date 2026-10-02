@@ -1,10 +1,49 @@
+
+export function calculateEMI(principal, monthlyRate, emi) {
+  if(isNaN(monthlyRate) || isNaN(emi) || isNaN(principal)){
+    return  { months: -1, totalPaid: -1, totalInterest: -1 }
+  }
+  // Your code here
+  if(principal<=0 || monthlyRate<=0 || emi<=0){
+    return { months: -1, totalPaid: -1, totalInterest: -1 }
+  }
+  if(emi<=principal*monthlyRate){
+    return { months: -1, totalPaid: -1, totalInterest: -1 }
+  }
+
+    const originalPrincipal = principal;
+
+  let totalIntertest=0;
+let months=0;
+let totalPaid=0;
+  while(principal>0){
+    
+    const intrest=principal*monthlyRate;
+    totalIntertest+=intrest;
+    principal+=intrest;
+    if(principal<emi){
+      totalPaid+=principal;
+      months++;
+      break;
+    }
+    principal-=emi;
+    months++;
+    totalPaid+=emi;
+
+  }
+
+  return {
+    months:months,
+    totalPaid:totalPaid,
+    totalInterest:Math.round((totalPaid - originalPrincipal) * 100) / 100
+
+  }
+
+}
+
+
 /**
- * 📱 Rohit ka Phone EMI Calculator
- *
- * Rohit ne naya phone liya hai EMI pe! Usse jaanna hai ki kitne months
- * lagenge phone ka poora paisa chukane mein. Har month interest lagta hai
- * remaining amount pe, aur phir EMI deduct hoti hai.
- *
+ 
  * Rules (use while loop):
  *   - Start with principal amount (remaining balance)
  *   - Each month:
@@ -16,15 +55,19 @@
  *   - Continue while remaining > 0
  *   - In the last month, if remaining < emi, just pay what's left
  *     (totalPaid += remaining before deduction, not full emi)
- *
- * Infinite loop protection:
- *   - Agar EMI <= first month's interest (principal * monthlyRate),
- *     toh loan kabhi khatam nahi hoga!
- *     Return: { months: -1, totalPaid: -1, totalInterest: -1 }
- *
- * Validation:
- *   - All three params must be positive numbers, else return
- *     { months: -1, totalPaid: -1, totalInterest: -1 }
+
+
+//  *
+//  * Infinite loop protection:
+//  *   - Agar EMI <= first month's interest (principal * monthlyRate),
+//  *     toh loan kabhi khatam nahi hoga!
+//  *     Return: { months: -1, totalPaid: -1, totalInterest: -1 }
+//  *
+//  * Validation:
+//  *   - All three params must be positive numbers, else return
+//  *     { months: -1, totalPaid: -1, totalInterest: -1 }
+
+
  *
  * @param {number} principal - Loan amount (phone ki price)
  * @param {number} monthlyRate - Monthly interest rate (e.g., 0.02 for 2%)
@@ -41,6 +84,3 @@
  *   // First month interest = 500, EMI = 400 < 500, INFINITE LOOP!
  *   // => { months: -1, totalPaid: -1, totalInterest: -1 }
  */
-export function calculateEMI(principal, monthlyRate, emi) {
-  // Your code here
-}

@@ -1,6 +1,5 @@
 /**
  * 🍗 Paradise Biryani Batch System
- *
  * Paradise restaurant mein biryani orders aate hain. Kitchen ek batch mein
  * sirf 5 plates bana sakti hai. Agar ek order mein zyada plates hain toh
  * woh multiple batches mein split hota hai.
@@ -35,4 +34,33 @@
  */
 export function biryaniBatchProcessor(orders) {
   // Your code here
+  if(!Array.isArray(orders) || orders.length==0){
+    return { totalBatches: 0, totalPlates: 0, ordersProcessed: 0 }
+  }
+  let totalBatches=0;
+  let totalPlates=0;
+  let orderProcessed=0;
+
+
+  for(let i=0;i<orders.length;i++){
+    let chai=orders[i];
+
+    if(isNaN(chai) || chai<=0 || !Number.isInteger(chai)){
+      continue;
+    }
+    totalBatches+=Math.ceil(chai/5);
+    totalPlates+=chai;
+    orderProcessed++;
+
+
+
+  }
+
+  return {
+    totalBatches:totalBatches,
+    totalPlates:totalPlates,
+    ordersProcessed:orderProcessed
+  }
+
+
 }

@@ -27,5 +27,18 @@
  *   // => { totalChai: 0, totalRevenue: 0 }
  */
 export function chaiTapriRevenue(customers) {
+  if(isNaN(customers)|| customers<1 || !Number.isInteger(customers)){
+    return { totalChai: 0, totalRevenue: 0 }
+  }
+  let addak=Math.floor(customers/3);
+  let normal=customers-addak;
+
+  return {totalChai:customers,totalRevenue:addak*15+normal*10};
+  console.log(addak,normal);
+
+
+  
   // Your code here
+
+
 }

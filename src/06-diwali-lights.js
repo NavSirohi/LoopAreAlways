@@ -11,10 +11,9 @@
  *   - "multicolor" = Rs 40/meter
  *   - "white" = Rs 30/meter
  *   - Any other color = Rs 35/meter
- *
  * Rules:
  *   Step 1 - Use for...of to loop through lightStrings and add ALL of them
- *     to selected list with their cost calculated
+ *     to selected list with their cost calculatd
  *   Step 2 - Use a while loop to check: agar totalCost > budget, toh remove
  *     the LAST item from selected, subtract its cost, and keep removing until
  *     totalCost <= budget
@@ -25,7 +24,8 @@
  *
  * Validation:
  *   - Agar lightStrings array nahi hai ya budget positive number nahi hai,
- *     return: { selected: [], totalLength: 0, totalCost: 0 }
+ *     return: { selected: [], 
+ * totalLength: 0, totalCost: 0 }
  *
  * @example
  *   diwaliLightsPlan(
@@ -39,4 +39,45 @@
  */
 export function diwaliLightsPlan(lightStrings, budget) {
   // Your code here
+  if(!Array.isArray(lightStrings) || budget<0){
+    return {selected: [], totalLength: 0, totalCost: 0 }
+  }
+  const result={
+    selected:[],
+    totalLength:0,
+    totalCost:0,
+  }
+  let price;
+  for(const c of lightStrings){
+    if(c.color=="golden"){
+      price=50;
+    }
+    else if(c.color=="white"){
+      price=30;
+    }
+    else if(c.color=="multicolor"){
+      price=40;
+    }
+    else{
+      price=35;
+    }
+
+
+    let now=c.length*price;
+    if(result.totalCost+now<=budget){
+      result.selected.push({color:c.color,
+        length:c.length,
+        cost:now
+      });
+
+
+      result.totalLength+=c.length;
+      result.totalCost+=now;
+    }else{
+      break;
+    }
+   
+
+  }
+  return result;
 }
